@@ -280,6 +280,10 @@ $copyright = "Tiket Kapal";
       format: "yyyy-mm-dd hh:ii:ss",
       autoclose: true
     });
+    $('.formdate2').datepicker({
+      format: "yyyy-mm-dd",
+      autoclose: true
+    });
     $('.form_datetime').datetimepicker({
       language: 'id',
       weekStart: 1,

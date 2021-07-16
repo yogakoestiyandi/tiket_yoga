@@ -9,7 +9,7 @@ class Laporan_penjualan extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Laporan_penjualan_model');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Laporan_penjualan extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'laporan_penjualan?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'laporan_penjualan?q=' . urlencode($q);
@@ -30,8 +30,19 @@ class Laporan_penjualan extends CI_Controller
 
         $config['per_page'] = 10;
         $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Laporan_penjualan_model->total_rows($q);
-        $laporan_penjualan = $this->Laporan_penjualan_model->get_limit_data($config['per_page'], $start, $q);
+        // $config['total_rows'] = $this->Laporan_penjualan_model->total_rows($q);
+        // $laporan_penjualan = $this->Laporan_penjualan_model->get_limit_data($config['per_page'], $start, $q);
+
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
+
+        if ($dari) {
+            $config['total_rows'] = $this->Laporan_penjualan_model->laporan_tiket_harian_total($q, $dari, $sampai);
+            $laporan_penjualan = $this->Laporan_penjualan_model->laporan_tiket_harian($config['per_page'], $start, $q, $dari, $sampai);
+        } else {
+            $config['total_rows'] = $this->Laporan_penjualan_model->total_rows($q);
+            $laporan_penjualan = $this->Laporan_penjualan_model->get_limit_data($config['per_page'], $start, $q);
+        }
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
@@ -53,36 +64,36 @@ class Laporan_penjualan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Laporan_penjualan_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'tanggal' => $row->tanggal,
-		'tiket_terjual' => $row->tiket_terjual,
-	    );
-        $data['title'] = 'Laporan Penjualan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'tanggal' => $row->tanggal,
+                'tiket_terjual' => $row->tiket_terjual,
+            );
+            $data['title'] = 'Laporan Penjualan';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'laporan_penjualan/laporan_penjualan_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'laporan_penjualan/laporan_penjualan_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('laporan_penjualan'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('laporan_penjualan/create_action'),
-	    'tanggal' => set_value('tanggal'),
-	    'tiket_terjual' => set_value('tiket_terjual'),
-	);
+            'tanggal' => set_value('tanggal'),
+            'tiket_terjual' => set_value('tiket_terjual'),
+        );
         $data['title'] = 'Laporan Penjualan';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -92,8 +103,8 @@ class Laporan_penjualan extends CI_Controller
         $data['page'] = 'laporan_penjualan/laporan_penjualan_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -101,17 +112,17 @@ class Laporan_penjualan extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'tiket_terjual' => $this->input->post('tiket_terjual',TRUE),
-	    );
+                'tanggal' => $this->input->post('tanggal', TRUE),
+                'tiket_terjual' => $this->input->post('tiket_terjual', TRUE),
+            );
 
             $this->Laporan_penjualan_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('laporan_penjualan'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Laporan_penjualan_model->get_by_id($id);
 
@@ -119,24 +130,24 @@ class Laporan_penjualan extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('laporan_penjualan/update_action'),
-		'tanggal' => set_value('tanggal', $row->tanggal),
-		'tiket_terjual' => set_value('tiket_terjual', $row->tiket_terjual),
-	    );
+                'tanggal' => set_value('tanggal', $row->tanggal),
+                'tiket_terjual' => set_value('tiket_terjual', $row->tiket_terjual),
+            );
             $data['title'] = 'Laporan Penjualan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'laporan_penjualan/laporan_penjualan_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'laporan_penjualan/laporan_penjualan_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('laporan_penjualan'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -144,17 +155,17 @@ class Laporan_penjualan extends CI_Controller
             $this->update($this->input->post('', TRUE));
         } else {
             $data = array(
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'tiket_terjual' => $this->input->post('tiket_terjual',TRUE),
-	    );
+                'tanggal' => $this->input->post('tanggal', TRUE),
+                'tiket_terjual' => $this->input->post('tiket_terjual', TRUE),
+            );
 
             $this->Laporan_penjualan_model->update($this->input->post('', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('laporan_penjualan'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Laporan_penjualan_model->get_by_id($id);
 
@@ -168,23 +179,24 @@ class Laporan_penjualan extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Laporan_penjualan_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
-    {
-	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
-	$this->form_validation->set_rules('tiket_terjual', 'tiket terjual', 'trim|required');
 
-	$this->form_validation->set_rules('', '', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    public function _rules()
+    {
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+        $this->form_validation->set_rules('tiket_terjual', 'tiket terjual', 'trim|required');
+
+        $this->form_validation->set_rules('', '', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()
@@ -209,18 +221,18 @@ class Laporan_penjualan extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tanggal");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tiket Terjual");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tanggal");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tiket Terjual");
 
-	foreach ($this->Laporan_penjualan_model->get_all() as $data) {
+        foreach ($this->Laporan_penjualan_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->tanggal);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->tiket_terjual);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tanggal);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tiket_terjual);
 
-	    $tablebody++;
+            $tablebody++;
             $nourut++;
         }
 
@@ -237,18 +249,18 @@ class Laporan_penjualan extends CI_Controller
             'laporan_penjualan_data' => $this->Laporan_penjualan_model->get_all(),
             'start' => 0
         );
-        
-        $this->load->view('laporan_penjualan/laporan_penjualan_doc',$data);
+
+        $this->load->view('laporan_penjualan/laporan_penjualan_doc', $data);
     }
 
-  public function printdoc(){
+    public function printdoc()
+    {
         $data = array(
             'laporan_penjualan_data' => $this->Laporan_penjualan_model->get_all(),
             'start' => 0
         );
         $this->load->view('laporan_penjualan/laporan_penjualan_print', $data);
     }
-
 }
 
 /* End of file Laporan_penjualan.php */

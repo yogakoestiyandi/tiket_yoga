@@ -43,6 +43,24 @@
                         </form>
                     </div>
                 </div>
+                <div style="margin-bottom: 10px;margin-left:10px;margin-top:60px"><label for="filter">Filter Tanggal:</label></div>
+                <div class="row" style="margin-bottom: 10px;margin-left:10px">
+                    <form action="<?php echo base_url('laporan_penjualan'); ?>" class="form-inline" method="post">
+                        <div class="col input-group">
+                            <!-- <label><b>Filter :</b></label> -->
+                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-calendar"></i></button></span>
+                            <input type="text" class="form-control formdate2" name="dari" id="DariTanggal" required="true" placeholder="Dari Tanggal">
+                        </div>
+                        <div class="col input-group">
+                            <span class="input-group-addon" id="sizing-addon1">
+                                <i class="fas fa-chevron-right"></i></span>
+                            <input type="text" class="form-control formdate2" name="sampai" id="SampaiTanggal" required="true" placeholder="Sampai Tanggal">
+                        </div>
+                        <div class="col input-group">
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Submit</button>
+                        </div>
+                    </form>
+                </div>
                 <form method="post" action="<?= site_url('laporan_penjualan/deletebulk'); ?>" id="formbulk">
                     <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
                         <tr>
@@ -52,6 +70,7 @@
                             <th>Tiket Terjual</th>
                             <!-- <th>Action</th> -->
                         </tr><?php
+                                $total_tiket = 0;
                                 foreach ($laporan_penjualan_data as $laporan_penjualan) {
                                 ?>
                             <tr>
@@ -59,26 +78,21 @@
 
 
                                 <td width="80px"><?php echo ++$start ?></td>
-                                <td><?php echo $laporan_penjualan->tanggal ?></td>
+                                <td><?php echo tanggal_transaksi($laporan_penjualan->tanggal) ?></td>
                                 <td><?php echo $laporan_penjualan->tiket_terjual ?></td>
-                                <!-- <td style="text-align:center" width="200px">
-				<?php
-                                    // echo anchor(site_url('laporan_penjualan/read/'.$laporan_penjualan->),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 
-                                    // echo ' '; 
-                                    // echo anchor(site_url('laporan_penjualan/update/'.$laporan_penjualan->),' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"'); 
-                                    // echo ' '; 
-                                    // echo anchor(site_url('laporan_penjualan/delete/'.$laporan_penjualan->),' <i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirmdelete(\'laporan_penjualan/delete/'.$laporan_penjualan->.'\')"  data-toggle="tooltip" title="Delete" '); 
-                                    // 
-                ?>
-			</td> -->
+                                <?php $total_tiket = $total_tiket + $laporan_penjualan->tiket_terjual; ?>
                             </tr>
                         <?php
                                 }
                         ?>
                     </table>
                     <div class="row" style="margin-bottom: 10px;">
-                        <div class="col-md-12">
+                        <div class="col-md-7">
                             <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn"><b>Total Tiket Terjual : <?php echo $total_tiket ?></b></button>
+
                         </div>
                     </div>
                 </form>
