@@ -34,6 +34,12 @@
                         <td>tanggal_keberangkatan</td>
                         <td><?php echo $tanggal_keberangkatan; ?></td>
                     </tr>
+                    <?php $data = base_url('pemesanan/read/') . $this->uri->segment(3);
+                    sf_qr_generate($data); ?>
+                    <tr>
+                        <td>QR</td>
+                        <td><img width="250 px" src="<?= base_url('assets/qr/qrgenerator.png'); ?>" alt=""></td>
+                    </tr>
 
                 </table>
             </div>

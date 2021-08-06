@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jul 2021 pada 10.54
+-- Waktu pembuatan: 06 Agu 2021 pada 13.46
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.2.34
 
@@ -46,7 +46,25 @@ INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `nama`, `
 (4, 19, 'akbar', 2147483647, 'Laki'),
 (5, 20, 'Muhammad Akbar', 2147483647, 'Laki'),
 (6, 21, 'asdasdasd', 2147483647, 'asdasd'),
-(7, 22, 'Arya', 862123421, 'Laki laki');
+(7, 22, 'Arya', 862123421, 'Laki laki'),
+(8, 23, 'Fajar', 2147483647, 'Laki laki'),
+(9, 24, 'Salsabila', 2147483647, 'Perempuan'),
+(10, 25, 'Salsabila', 2147483647, 'Perempuan'),
+(11, 26, 'Akbar', 2147483647, 'Laki laki'),
+(12, 27, 'Gerald', 2147483647, 'Laki laki'),
+(13, 28, 'Charles', 2147483647, 'Laki laki'),
+(14, 29, 'Grenius', 2147483647, 'Laki laki'),
+(15, 30, 'Gerald', 2147483647, 'Laki laki'),
+(16, 31, 'akbr', 2147483647, 'Laki laki'),
+(17, 32, 'gukguk', 2147483647, 'Laki laki'),
+(18, 33, 'sabil', 2147483647, 'Perempuan'),
+(19, 34, 'arya fajar', 2147483647, 'Laki laki'),
+(20, 35, 'Ester', 2147483647, 'Perempuan'),
+(21, 36, 'koko', 21832112, 'Laki laki'),
+(22, 37, 'Matt', 2147483647, 'Laki laki'),
+(23, 38, 'Salsabila balqis', 2147483647, 'Perempuan'),
+(24, 39, 'jaki', 2147483647, 'Laki laki'),
+(25, 40, 'Arya', 2147483647, 'Laki laki');
 
 -- --------------------------------------------------------
 
@@ -144,10 +162,10 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`id_jadwal`, `asal`, `tujuan`, `tanggal_keberangkatan`, `tanggal_sampai`, `harga_tiket`) VALUES
-(6, 'Ambarita', 'Ajibata', '2021-07-13 17:00:58', '2021-07-13 19:00:58', 60000),
-(8, 'Ajibata', 'Ambarita', '2021-07-13 09:40:02', '2021-07-13 16:00:00', 50000),
-(9, 'Ajibata', 'Tigaras', '2021-07-14 09:00:20', '2021-07-14 10:00:20', 60000),
-(10, 'Tigaras', 'Ajibata', '2021-07-14 13:00:52', '2021-07-14 14:00:52', 60000);
+(15, 'Ajibata', 'Ambarita', '2021-08-03 08:00:02', '2021-08-03 09:00:00', 30000),
+(16, 'Ambarita', 'Ajibata', '2021-08-03 10:00:02', '2021-08-03 11:00:58', 30000),
+(17, 'Ambarita', 'Tigaras', '2021-08-03 13:00:02', '2021-08-03 15:00:58', 50000),
+(18, 'Tigaras', 'Ambarita', '2021-08-03 17:00:02', '2021-08-03 19:00:52', 50000);
 
 -- --------------------------------------------------------
 
@@ -172,6 +190,13 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(43, '::1', 'kasir01@gmail.com', 1627981049);
 
 -- --------------------------------------------------------
 
@@ -262,7 +287,24 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `metode`, `tanggal_ba
 (4, 19, 'BRI', '2021-07-10', 'dibayar'),
 (5, 20, 'CASH', '2021-07-10', 'dibayar'),
 (6, 21, 'DANA', '2021-07-10', 'dibayar'),
-(7, 22, 'BCA', '2021-07-12', 'dibayar');
+(7, 22, 'BCA', '2021-07-12', 'dibayar'),
+(8, 24, 'BCA', '2021-07-20', 'dibayar'),
+(9, 25, 'BCA', '2021-07-20', 'dibayar'),
+(10, 26, 'DANA', '2021-07-20', 'dibayar'),
+(11, 27, 'BRI', '2021-07-20', 'dibayar'),
+(12, 28, 'BCA', '2021-07-20', 'dibayar'),
+(13, 29, 'OVO', '2021-07-21', 'dibayar'),
+(14, 30, 'CASH', '2021-07-21', 'dibayar'),
+(15, 31, 'OVO', '2021-07-31', 'dibayar'),
+(16, 32, 'BCA', '2021-07-31', 'dibayar'),
+(17, 33, 'OVO', '2021-07-31', 'dibayar'),
+(18, 34, 'CASH', '2021-07-31', 'dibayar'),
+(19, 35, 'OVO', '2021-07-31', 'dibayar'),
+(20, 36, 'OVO', '2021-07-31', 'dibayar'),
+(21, 37, 'OVO', '2021-08-03', 'dibayar'),
+(22, 38, 'OVO', '2021-08-03', 'dibayar'),
+(23, 39, 'CASH', '2021-08-03', 'dibayar'),
+(24, 40, 'GOPAY', '2021-08-03', 'dibayar');
 
 -- --------------------------------------------------------
 
@@ -283,7 +325,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`id_pemesanan`, `id_user`, `id_jadwal`, `status_pemesanan`, `tanggal_pemesanan`) VALUES
-(1, 21, 6, 'Dipesan', '0000-00-00'),
+(1, 21, 6, 'Dipesan', '2021-07-03'),
 (2, 21, 6, 'Dipesan', '2021-07-03'),
 (3, 21, 7, 'Dipesan', '2021-07-03'),
 (4, 21, 6, 'Dipesan', '2021-07-03'),
@@ -304,7 +346,25 @@ INSERT INTO `pemesanan` (`id_pemesanan`, `id_user`, `id_jadwal`, `status_pemesan
 (19, 22, 6, 'Dipesan', '2021-07-10'),
 (20, 46, 6, 'Dipesan', '2021-07-10'),
 (21, 22, 6, 'Dipesan', '2021-07-10'),
-(22, 13, 6, 'Dipesan', '2021-07-12');
+(22, 13, 6, 'Dipesan', '2021-07-12'),
+(23, 47, 8, 'Dipesan', '2021-07-17'),
+(24, 47, 11, 'Dipesan', '2021-07-20'),
+(25, 46, 11, 'Dipesan', '2021-07-20'),
+(26, 47, 14, 'Dipesan', '2021-07-20'),
+(27, 13, 14, 'Dipesan', '2021-07-20'),
+(28, 48, 12, 'Dipesan', '2021-07-20'),
+(29, 47, 11, 'Dipesan', '2021-07-21'),
+(30, 46, 12, 'Dipesan', '2021-07-21'),
+(31, 47, 11, 'Dipesan', '2021-07-31'),
+(32, 47, 13, 'Dipesan', '2021-07-31'),
+(33, 46, 12, 'Dipesan', '2021-07-31'),
+(34, 46, 11, 'Dipesan', '2021-07-31'),
+(35, 46, 12, 'Dipesan', '2021-07-31'),
+(36, 47, 12, 'Dipesan', '2021-07-31'),
+(37, 47, 15, 'Dipesan', '2021-08-03'),
+(38, 47, 15, 'Dipesan', '2021-08-03'),
+(39, 46, 15, 'Dipesan', '2021-08-03'),
+(40, 47, 16, 'Dipesan', '2021-08-03');
 
 -- --------------------------------------------------------
 
@@ -332,7 +392,8 @@ INSERT INTO `penumpang` (`id_penumpang`, `id_user`, `alamat`, `jens_kelamin`, `n
 (5, 22, 'Jalan Sarijadi Blok 02 No 118 Rt 06/02', 'Laki Laki', 2147483647),
 (6, 29, 'Jalan Sarijadi Blok 02 No 118 Rt 06/02', 'Laki Laki', 2147483647),
 (7, 31, 'Jalan Sarijadi Blok 02 No 118 Rt 06/02', 's', 2147483647),
-(8, 47, 'Medan', 'perempuan', 2147483647);
+(8, 47, 'Medan', 'perempuan', 2147483647),
+(9, 48, 'Balige', 'Laki laki', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -378,11 +439,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `image`, `active`, `phone`) VALUES
 (13, '', 'penumpang01@gmail.com', '$2y$08$GFbtgOEJDsBjS3BXQq2cg.npg9mumOeqKEMWVAfKfdjH5L9lXmWiS', 'Penumpang', '01', 'default.jpg', 1, 0),
-(16, '', 'pemilik01@gmail.com', '$2y$08$hoTaK2Gtln6lQk8MDpjfOOFBotvB3bMc2prWhxchP/2dduEnlLyfS', 'Pemilik', '01', 'default.jpg', 1, 0),
-(17, '', 'prayogamt6@gmail.com', '$2y$08$WBgrlksYrsR80WjJOfabQO6onykL1uJU0OLR.fl5yGtE0W4NkTifG', 'Koestiyandi', 'Prayoga', 'lovee.jpg', 1, 0),
+(16, '', 'pemilik01@gmail.com', '$2y$08$hoTaK2Gtln6lQk8MDpjfOOFBotvB3bMc2prWhxchP/2dduEnlLyfS', 'Pemilik', 'IHAN BATAK', 'banner-slide-3.jpg', 1, 0),
+(17, '', 'prayogamt6@gmail.com', '$2y$08$WBgrlksYrsR80WjJOfabQO6onykL1uJU0OLR.fl5yGtE0W4NkTifG', 'ADMIN', 'IHAN BATAK', 'iphone62.png', 1, 0),
 (22, '', 'penumpang03@gmail.com', '$2y$08$MCV7uZEVRGizY5kQBooaM.By3I8/2g.72/EGj5.iiJZxv5adWOOzW', 'Penumpang', '03', 'default.jpg', 1, 0),
-(46, 'kasir@gmail.com', 'kasir@gmail.com', '$2y$08$3YhcfgSnrEIXXiYFEB.o0OWhVImF2wMOsnuZw1iL72lMGMs4SyLaa', 'Ticketing', '01', 'default.jpg', 1, 0),
-(47, 'salsabilamt6@gmail.com', 'salsabilamt6@gmail.com', '$2y$08$p1Cfs6TzQHYx4x4Y3QYEnei2vnlUYgeFKPTYc3qPKSNZmjM7zLsN.', 'salsabila', 'Prayoga', 'default.jpg', 1, 0);
+(46, 'kasir@gmail.com', 'kasir@gmail.com', '$2y$08$3YhcfgSnrEIXXiYFEB.o0OWhVImF2wMOsnuZw1iL72lMGMs4SyLaa', 'Ticketing', 'IHAN BATAK', 'portfolio-1.jpg', 1, 0),
+(47, 'salsabilamt6@gmail.com', 'salsabilamt6@gmail.com', '$2y$08$p1Cfs6TzQHYx4x4Y3QYEnei2vnlUYgeFKPTYc3qPKSNZmjM7zLsN.', 'salsabila', 'PENUMPANG', 'team-4.jpg', 1, 0),
+(48, 'penumpang123@gmail.com', 'penumpang123@gmail.com', '$2y$08$Mgih5TFZxtBKS.1P.q6ZHeNdjwcRh3u7BqHMsS95SI4T64fdwrVRG', 'penumpang', '123', 'default.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -407,7 +469,8 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (98, 17, 1),
 (142, 22, 2),
 (149, 46, 32),
-(150, 47, 2);
+(150, 47, 2),
+(151, 48, 2);
 
 -- --------------------------------------------------------
 
@@ -505,7 +568,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT untuk tabel `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `groups`
@@ -517,13 +580,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu`
@@ -541,19 +604,19 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `penumpang`
 --
 ALTER TABLE `penumpang`
-  MODIFY `id_penumpang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_penumpang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `setting`
@@ -565,13 +628,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

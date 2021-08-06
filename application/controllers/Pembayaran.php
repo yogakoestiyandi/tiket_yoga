@@ -316,6 +316,41 @@ class Pembayaran extends CI_Controller
         $data['page'] = 'pembayaran/bayar_sukses_print';
         $this->load->view('template/backend', $data);
     }
+
+    public function cetak_tiket_pemesanan($id_pemesanan)
+    {
+        // Tanggal Keberangkatan, Nama, Jenis Kelamin,  Nomor Handphone , Harga
+
+
+        $detail = $this->db->query("SELECT * from detail_pemesanan where id_pemesanan=$id_pemesanan")->row();
+        $nama = $detail->nama;
+        $jenis_kelamin = $detail->jenis_kelamin;
+        $nomor_hp = $detail->nomor_hp;
+
+        $jadwal = $this->db->query("SELECT jadwal.tanggal_keberangkatan,jadwal.harga_tiket from pemesanan join jadwal on pemesanan.id_jadwal=jadwal.id_jadwal where id_pemesanan=$id_pemesanan")->row();
+        $tanggal_keberangkatan = $jadwal->tanggal_keberangkatan;
+        $harga_tiket = $jadwal->harga_tiket;
+
+        $data = array(
+            'button' => 'Bayar',
+            'action' => site_url('pembayaran/cetak_tiket'),
+            'nama' => $nama,
+            'jenis_kelamin' => $jenis_kelamin,
+            'nomor_hp' => $nomor_hp,
+            'tanggal_keberangkatan' => $tanggal_keberangkatan,
+            'harga_tiket' => $harga_tiket,
+            'id_pemesanan' => $id_pemesanan,
+
+        );
+        $data['title'] = 'Pembayaran';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Dashboard' => '',
+        ];
+
+        $data['page'] = 'pembayaran/bayar_sukses_print';
+        $this->load->view('template/backend', $data);
+    }
 }
 
 /* End of file Pembayaran.php */
