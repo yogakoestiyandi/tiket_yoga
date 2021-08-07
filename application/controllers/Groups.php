@@ -17,7 +17,7 @@ class Groups extends CI_Controller
     public function index()
     {
         $data['title'] = 'User';
-        $data['subtitle'] = 'Groups';
+        $data['subtitle'] = 'Hak Akses';
         $data['crumb'] = [
             'Dashboard' => '',
         ];

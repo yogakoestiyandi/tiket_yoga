@@ -27,7 +27,8 @@ class Users extends CI_Controller
         // set the flash data error message if there is one
         $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
         //list the users
-        $data['users'] = $this->ion_auth->users()->result();
+        $userapa = ['admin', 'kasir', 'Pemilik'];
+        $data['users'] = $this->ion_auth->users($userapa)->result();
         foreach ($data['users'] as $k => $user) {
             $data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
         }
@@ -38,6 +39,24 @@ class Users extends CI_Controller
         ];
 
         $data['page'] = 'users/list';
+        $this->load->view('template/backend', $data);
+    }
+    public function penumpang()
+    {
+        // set the flash data error message if there is one
+        $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        //list the users
+        $data['users'] = $this->ion_auth->users("Penumpang")->result();
+        foreach ($data['users'] as $k => $user) {
+            $data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+        }
+        $data['title'] = 'User';
+        $data['subtitle'] = 'Penumpang';
+        $data['crumb'] = [
+            'Users' => '',
+        ];
+
+        $data['page'] = 'users/penumpang';
         $this->load->view('template/backend', $data);
     }
 
