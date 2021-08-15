@@ -13,6 +13,7 @@ class Pembayaran extends CI_Controller
         $this->layout->auth_privilege($c_url);
         $this->load->model('Pembayaran_model');
         $this->load->library('form_validation');
+        $this->load->model('Pemesanan_model');
     }
 
     public function index()
@@ -259,7 +260,9 @@ class Pembayaran extends CI_Controller
         $jadwal = $this->db->query("SELECT jadwal.tanggal_keberangkatan,jadwal.harga_tiket from pemesanan join jadwal on pemesanan.id_jadwal=jadwal.id_jadwal where id_pemesanan=$id_pemesanan")->row();
         $tanggal_keberangkatan = $jadwal->tanggal_keberangkatan;
         $harga_tiket = $jadwal->harga_tiket;
-
+        $row = $this->Pemesanan_model->get_by_id($id_pemesanan);
+        $jadwalKeberangkatan = $this->db->query("select concat(asal,'-',tujuan) as jadwal from jadwal where id_jadwal=$row->id_jadwal")->row();
+        $jadwalKeberangkatan = $jadwalKeberangkatan->jadwal;
         $data = array(
             'button' => 'Bayar',
             'action' => site_url('pembayaran/cetak_tiket/' . $id_bayar),
@@ -269,6 +272,8 @@ class Pembayaran extends CI_Controller
             'tanggal_keberangkatan' => $tanggal_keberangkatan,
             'harga_tiket' => $harga_tiket,
             'id_pemesanan' => $id_pemesanan,
+            'jadwal' => $jadwalKeberangkatan,
+            'tanggal_pemesanan' => $row->tanggal_pemesanan,
 
         );
         $data['title'] = 'Pembayaran';
@@ -295,7 +300,9 @@ class Pembayaran extends CI_Controller
         $jadwal = $this->db->query("SELECT jadwal.tanggal_keberangkatan,jadwal.harga_tiket from pemesanan join jadwal on pemesanan.id_jadwal=jadwal.id_jadwal where id_pemesanan=$id_pemesanan")->row();
         $tanggal_keberangkatan = $jadwal->tanggal_keberangkatan;
         $harga_tiket = $jadwal->harga_tiket;
-
+        $row = $this->Pemesanan_model->get_by_id($id_pemesanan);
+        $jadwalKeberangkatan = $this->db->query("select concat(asal,'-',tujuan) as jadwal from jadwal where id_jadwal=$row->id_jadwal")->row();
+        $jadwalKeberangkatan = $jadwalKeberangkatan->jadwal;
         $data = array(
             'button' => 'Bayar',
             'action' => site_url('pembayaran/cetak_tiket'),
@@ -305,6 +312,8 @@ class Pembayaran extends CI_Controller
             'tanggal_keberangkatan' => $tanggal_keberangkatan,
             'harga_tiket' => $harga_tiket,
             'id_pemesanan' => $id_pemesanan,
+            'jadwal' => $jadwalKeberangkatan,
+            'tanggal_pemesanan' => $row->tanggal_pemesanan,
 
         );
         $data['title'] = 'Pembayaran';
@@ -331,6 +340,9 @@ class Pembayaran extends CI_Controller
         $tanggal_keberangkatan = $jadwal->tanggal_keberangkatan;
         $harga_tiket = $jadwal->harga_tiket;
 
+        $row = $this->Pemesanan_model->get_by_id($id_pemesanan);
+        $jadwalKeberangkatan = $this->db->query("select concat(asal,'-',tujuan) as jadwal from jadwal where id_jadwal=$row->id_jadwal")->row();
+        $jadwalKeberangkatan = $jadwalKeberangkatan->jadwal;
         $data = array(
             'button' => 'Bayar',
             'action' => site_url('pembayaran/cetak_tiket'),
@@ -340,6 +352,9 @@ class Pembayaran extends CI_Controller
             'tanggal_keberangkatan' => $tanggal_keberangkatan,
             'harga_tiket' => $harga_tiket,
             'id_pemesanan' => $id_pemesanan,
+            'jadwal' => $jadwalKeberangkatan,
+            'tanggal_pemesanan' => $row->tanggal_pemesanan,
+
 
         );
         $data['title'] = 'Pembayaran';

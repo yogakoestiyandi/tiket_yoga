@@ -34,7 +34,21 @@
                             <td>tanggal_keberangkatan</td>
                             <td><?php echo $tanggal_keberangkatan; ?></td>
                         </tr>
-                        <?php $data = base_url('pemesanan/read/') . $this->uri->segment(3);
+                        <?php $data =
+                            base_url('pemesanan/read/') . $this->uri->segment(3)
+                            . "\n\n" .
+                            'Nama : ' . $nama
+                            . "\n" .
+                            'Jenis Kelamin : ' . $jenis_kelamin
+                            . "\n" .
+                            'Nomor Handphone : ' . $nomor_hp
+                            . "\n" .
+                            'Asal - Tujuan : ' . $jadwal
+                            . "\n" .
+                            'Tanggal Berangkat :' . $tanggal_keberangkatan
+                            . "\n" .
+                            'Tanggal pesan :' . $tanggal_pemesanan
+                            . "\n";
                         sf_qr_generate($data); ?>
                         <tr>
                             <td>QR</td>

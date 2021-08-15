@@ -67,6 +67,7 @@ class Pemesanan_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
+        $this->db->select("id_pemesanan, id_user, (select concat(first_name, ' ',last_name) from users where id=id_user) as nama_user, id_jadwal, status_pemesanan,tanggal_pemesanan");
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_pemesanan', $q);
         $this->db->or_like('id_user', $q);

@@ -50,11 +50,16 @@
                             <th>Tujuan</th>
                             <th>Tanggal Keberangkatan</th>
                             <th>Tanggal Sampai</th>
+                            <th>Status</th>
                             <th>Harga Tiket</th>
                             <th>Action</th>
                         </tr><?php
                                 foreach ($jadwal_data as $jadwal) {
                                 ?>
+
+                            <?php
+                                    $status = status_kapal($jadwal->tanggal_keberangkatan, $jadwal->tanggal_sampai);
+                            ?>
                             <tr>
 
                                 <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $jadwal->id_jadwal; ?>" />&nbsp;</td>
@@ -64,6 +69,7 @@
                                 <td><?php echo $jadwal->tujuan ?></td>
                                 <td><?php echo dateina($jadwal->tanggal_keberangkatan) ?></td>
                                 <td><?php echo dateina($jadwal->tanggal_sampai) ?></td>
+                                <td><?= $status; ?></td>
                                 <td><?php echo rupiah($jadwal->harga_tiket) ?></td>
                                 <td style="text-align:center" width="200px">
                                     <?php

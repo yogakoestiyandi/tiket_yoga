@@ -44,31 +44,43 @@
                 <form method="post" action="<?= site_url('pemesanan/deletebulk'); ?>" id="formbulk">
                     <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
                         <tr>
-                            <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
+                            <!-- <th style="width: 10px;"><input type="checkbox" name="selectall" /></th> -->
                             <th>No</th>
-                            <th>Id User</th>
-                            <th>Id Jadwal</th>
-                            <th>Status Pemesanan</th>
+                            <th>Nama User</th>
+                            <th>id Jadwal</th>
                             <th>Tanggal Pemesanan</th>
+                            <th>Status Pemesanan</th>
+                            <th>Status Kapal</th>
                             <th>Action</th>
                         </tr><?php
                                 foreach ($pemesanan_data as $pemesanan) {
                                 ?>
+
+                            <?php
+                                    $jadwalKeberangkatan = $this->db->query("select tanggal_keberangkatan as berangkat,tanggal_sampai as sampai from jadwal where id_jadwal=$pemesanan->id_jadwal")->row();
+                                    $berangkat = $jadwalKeberangkatan->berangkat;
+                                    $sampai = $jadwalKeberangkatan->sampai;
+
+                                    $status = status_kapal($berangkat, $sampai);
+                                    // echo $status;
+                                    // exit;
+                            ?>
                             <tr>
 
-                                <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $pemesanan->id_pemesanan; ?>" />&nbsp;</td>
+                                <!-- <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $pemesanan->id_pemesanan; ?>" />&nbsp;</td> -->
 
                                 <td width="80px"><?php echo ++$start ?></td>
-                                <td><?php echo $pemesanan->id_user ?></td>
+                                <td><?php echo $pemesanan->nama_user ?></td>
                                 <td><?php echo $pemesanan->id_jadwal ?></td>
-                                <td><?php echo $pemesanan->status_pemesanan ?></td>
                                 <td><?php echo $pemesanan->tanggal_pemesanan ?></td>
+                                <td><?php echo $pemesanan->status_pemesanan ?></td>
+                                <td><?php echo $status ?></td>
                                 <td style="text-align:center" width="200px">
                                     <?php
-                                    echo anchor(site_url('pemesanan/read/' . $pemesanan->id_pemesanan), '<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"');
+                                    echo anchor(site_url('pemesanan/read/' . $pemesanan->id_pemesanan), '<i class="fa fa-search"> Detail</i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"');
                                     echo ' ';
-                                    echo anchor(site_url('pemesanan/update/' . $pemesanan->id_pemesanan), ' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"');
-                                    echo ' ';
+                                    // echo anchor(site_url('pemesanan/update/' . $pemesanan->id_pemesanan), ' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"');
+                                    // echo ' ';
                                     // echo anchor(site_url('pemesanan/delete/' . $pemesanan->id_pemesanan), ' <i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="javasciprt: return confirmdelete(\'pemesanan/delete/' . $pemesanan->id_pemesanan . '\')"  data-toggle="tooltip" title="Delete" ');
                                     ?>
                                 </td>

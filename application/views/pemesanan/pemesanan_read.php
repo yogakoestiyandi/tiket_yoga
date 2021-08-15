@@ -14,12 +14,24 @@
             <div class="box-body">
                 <table class="table">
                     <tr>
-                        <td>Id User</td>
-                        <td><?php echo $id_user; ?></td>
+                        <td>Nama User</td>
+                        <td><?php echo $nama; ?></td>
                     </tr>
                     <tr>
-                        <td>Id Jadwal</td>
-                        <td><?php echo $id_jadwal; ?></td>
+                        <td>Jenis Kelamin</td>
+                        <td><?php echo $jenis_kelamin; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Nomor Handphone</td>
+                        <td><?php echo $nomor_hp; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Asal-Tujuan</td>
+                        <td><?php echo $jadwal; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Keberangkatan</td>
+                        <td><?php echo $tanggal_keberangkatan; ?></td>
                     </tr>
                     <tr>
                         <td>Status Pemesanan</td>
@@ -29,7 +41,21 @@
                         <td>Tanggal Pemesanan</td>
                         <td><?php echo $tanggal_pemesanan; ?></td>
                     </tr>
-                    <?php $data = base_url('pemesanan/read/') . $this->uri->segment(3);
+                    <?php $data =
+                        base_url('pemesanan/read/') . $this->uri->segment(3)
+                        . "\n\n" .
+                        'Nama : ' . $nama
+                        . "\n" .
+                        'Jenis Kelamin : ' . $jenis_kelamin
+                        . "\n" .
+                        'Nomor Handphone : ' . $nomor_hp
+                        . "\n" .
+                        'Asal - Tujuan : ' . $jadwal
+                        . "\n" .
+                        'Tanggal Berangkat :' . $tanggal_keberangkatan
+                        . "\n" .
+                        'Tanggal pesan :' . $tanggal_pemesanan
+                        . "\n";
                     sf_qr_generate($data); ?>
                     <tr>
                         <td>QR</td>

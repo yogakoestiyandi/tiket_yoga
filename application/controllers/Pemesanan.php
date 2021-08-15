@@ -134,13 +134,29 @@ class Pemesanan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id)
+    public function read($id_pemesanan)
     {
-        $row = $this->Pemesanan_model->get_by_id($id);
+        $detail = $this->db->query("SELECT * from detail_pemesanan where id_pemesanan=$id_pemesanan")->row();
+        $nama = $detail->nama;
+        $jenis_kelamin = $detail->jenis_kelamin;
+        $nomor_hp = $detail->nomor_hp;
+
+        $jadwal = $this->db->query("SELECT jadwal.tanggal_keberangkatan,jadwal.harga_tiket from pemesanan join jadwal on pemesanan.id_jadwal=jadwal.id_jadwal where id_pemesanan=$id_pemesanan")->row();
+        $tanggal_keberangkatan = $jadwal->tanggal_keberangkatan;
+        $harga_tiket = $jadwal->harga_tiket;
+        $row = $this->Pemesanan_model->get_by_id($id_pemesanan);
+        $jadwalKeberangkatan = $this->db->query("select concat(asal,'-',tujuan) as jadwal from jadwal where id_jadwal=$row->id_jadwal")->row();
+        $jadwalKeberangkatan = $jadwalKeberangkatan->jadwal;
         if ($row) {
             $data = array(
+                'nama' => $nama,
+                'jenis_kelamin' => $jenis_kelamin,
+                'nomor_hp' => $nomor_hp,
+                'tanggal_keberangkatan' => $tanggal_keberangkatan,
+                'harga_tiket' => $harga_tiket,
                 'id_pemesanan' => $row->id_pemesanan,
                 'id_user' => $row->id_user,
+                'jadwal' => $jadwalKeberangkatan,
                 'id_jadwal' => $row->id_jadwal,
                 'status_pemesanan' => $row->status_pemesanan,
                 'tanggal_pemesanan' => $row->tanggal_pemesanan,

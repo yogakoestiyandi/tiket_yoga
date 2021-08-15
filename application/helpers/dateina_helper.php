@@ -121,6 +121,23 @@ if (!function_exists('dateIna')) {
 		}
 	}
 
+	function status_kapal($berangkat, $sampai)
+	{
+
+		$sekarang = date('Y-m-d H:i:s');
+
+		if ($sekarang < $berangkat) {
+			$status = "Akan Segera Berangkat";
+		} elseif ($sekarang >= $berangkat && $sekarang <= $sampai) {
+			$status = "Masih dalam perjalanan";
+		} else {
+			$status = "Telah Sampai";
+		}
+
+
+		return $status;
+	}
+
 	function bulan_transaksi($data, $simple = false, $getMonth = false)
 	{
 
